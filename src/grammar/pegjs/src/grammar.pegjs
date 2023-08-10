@@ -208,14 +208,14 @@ transport_param   = "transport="i transport: ( "udp"i / "tcp"i / "sctp"i
                     / "tls"i / other_transport) {
                       options = options || { data: {}};
                       if(!options.data.uri_params) options.data.uri_params={};
-                      options.data.uri_params['transport'] = transport.toLowerCase(); }
+                      options.data.uri_params['transport'] = transport; }
 
 other_transport   = token
 
 user_param        = "user="i user:( "phone"i / "ip"i / other_user) {
                       options = options || { data: {}};
                       if(!options.data.uri_params) options.data.uri_params={};
-                      options.data.uri_params['user'] = user.toLowerCase(); }
+                      options.data.uri_params['user'] = user; }
 
 other_user        = token
 
@@ -248,7 +248,7 @@ other_param       = param: pname value: ( "=" pvalue )? {
                       else {
                         value = value[1];
                       }
-                      options.data.uri_params[param.toLowerCase()] = value;}
+                      options.data.uri_params[param] = value;}
 
 pname             = $ paramchar +
 
@@ -264,7 +264,7 @@ param_unreserved  = "[" / "]" / "/" / ":" / "&" / "+" / "$"
 headers           = "?" header ( "&" header )*
 
 header            = hname: hname "=" hvalue: hvalue  {
-                      hname = hname.join('').toLowerCase();
+                      hname = hname.join('');
                       hvalue = hvalue.join('');
                       options = options || { data: {}};
                       if(!options.data.uri_headers) options.data.uri_headers = {};
@@ -488,7 +488,7 @@ generic_param       = param: token  value: ( EQUAL gen_value )? {
                         else {
                           value = value[1];
                         }
-                        options.data.params[param.toLowerCase()] = value;}
+                        options.data.params[param] = value;}
 
 gen_value           = token / host / quoted_string
 
@@ -501,7 +501,7 @@ disp_type               = ("render"i / "session"i / "icon"i / "alert"i / disp_ex
                           {
                             options = options || { data: {}};
                             if (options.startRule === 'Content_Disposition') {
-                              options.data.type = text().toLowerCase();
+                              options.data.type = text();
                             }
                           }
 
@@ -577,7 +577,7 @@ Expires     = expires: delta_seconds {options = options || { data: {}}; options.
 
 Event             = event_type: event_type ( SEMI event_param )* {
                        options = options || { data: {}};
-                       options.data.event = event_type.toLowerCase(); }
+                       options.data.event = event_type; }
 
 event_type        = $( event_package ( "." event_template )* )
 
@@ -663,7 +663,7 @@ qop_options         = "qop"i EQUAL LDQUOT (qop_value ("," qop_value)*) RDQUOT
 qop_value           = qop_value: ( "auth-int"i / "auth"i / token ) {
                         options = options || { data: {}};
                         options.data.qop || (options.data.qop=[]);
-                        options.data.qop.push(qop_value.toLowerCase()); }
+                        options.data.qop.push(qop_value); }
 
 // PUBLISH ETag
 

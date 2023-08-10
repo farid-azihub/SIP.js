@@ -57,9 +57,9 @@ export class URI extends Parameters {
 
     // Normalized URI
     this.normal = {
-      scheme: scheme.toLowerCase(),
+      scheme: scheme,
       user,
-      host: host.toLowerCase(),
+      host: host,
       port
     };
   }
@@ -67,7 +67,7 @@ export class URI extends Parameters {
   get scheme(): string { return this.normal.scheme; }
   set scheme(value: string) {
     this.raw.scheme = value;
-    this.normal.scheme = value.toLowerCase();
+    this.normal.scheme = value;
   }
 
   get user(): string | undefined { return this.normal.user; }
@@ -78,7 +78,7 @@ export class URI extends Parameters {
   get host(): string { return this.normal.host; }
   set host(value: string) {
     this.raw.host = value;
-    this.normal.host = value.toLowerCase();
+    this.normal.host = value;
   }
 
   get aor(): string { return this.normal.user + "@" + this.normal.host; }
@@ -143,7 +143,7 @@ export class URI extends Parameters {
   private _toString(uri: any): string {
     let uriString: string  = uri.scheme + ":";
     // add slashes if it's not a sip(s) URI
-    if (!uri.scheme.toLowerCase().match("^sips?$")) {
+    if (!uri.scheme.match("^sips?$")) {
       uriString += "//";
     }
     if (uri.user) {
@@ -224,7 +224,7 @@ export class URI extends Parameters {
       "Rseq": "RSeq",
       "Www-Authenticate": "WWW-Authenticate",
     };
-    const name: Array<string> = str.toLowerCase().replace(/_/g, "-").split("-");
+    const name: Array<string> = str.replace(/_/g, "-").split("-");
     const parts: number = name.length;
     let hname = "";
 
