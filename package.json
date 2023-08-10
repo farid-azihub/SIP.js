@@ -30,7 +30,8 @@
     "library",
     "websocket",
     "javascript",
-    "typescript"
+    "typescript",
+    "voip"
   ],
   "devDependencies": {
     "@microsoft/api-documenter": "^7.19.22",
